@@ -8,6 +8,7 @@
 * IDE: IntelliJ IDEA 2018.1
 * Project management: Maven
 * DBMS: PostgreSQL 11
+* Frontend Framework: Thymeleaf + Bootstrap 4 + MDBootstrap
 * Backend Naming: English-US
 * Frontend Language: Vietnamese
 ###### Test succedded on Windows 8.1 + Java 8 + Tomcat 9 + PostgreSQL 11 (64bit)
@@ -20,6 +21,7 @@
 * IDE: IntelliJ IDEA 2018.1
 * Quản lí project: Maven
 * DBMS: PostgreSQL 11
+* Giao diện: Thymeleaf + Bootstrap 4 + MDBootstrap
 * Quy tắc đặt tên: Tiếng Anh (Mỹ)
 * Ngôn ngữ hiển thị: Tiếng Việt
 ###### Test thành công trên Windows 8.1 + Java 8 + Tomcat 9 + PostgreSQL 11 (64bit)

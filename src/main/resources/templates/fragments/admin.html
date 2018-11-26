@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="menu" class="mb-4">
+    <div class="card">
+        <div class="card-header">Danh mục</div>
+        <ul class="list-group list-group-flush text-center">
+            <li class="list-group-item"><a th:href="@{/admin/order/pending}">Đơn hàng đang xét</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/order/shipping}">Đơn hàng đang giao</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/order/succeeded}">Đơn hàng thành công</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/order/failed}">Đơn hàng thất bại</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/group}">Quản lí Loại bánh</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/item}">Quản lí Bánh</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/customer}">Quản lí Thành viên</a></li>
+            <li class="list-group-item"><a th:href="@{/admin/feedback}">Quản lí Phản hồi</a></li>
+
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="message">
+    <div th:if="${success == 'false'}" class="alert alert-danger py-2 mt-4 mb-2" th:text="${message}"></div>
+    <div th:if="${success == 'true'}" class="alert alert-success py-2 mt-4 mb-2" th:text="${message}"></div>
+</div>
+
+</body>
+
+</html>

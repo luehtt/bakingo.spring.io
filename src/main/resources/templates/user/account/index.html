@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Tài khoản</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/user :: message"></div>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/user :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">Cập nhật thông tin</div>
+                <div class="card-body">
+                    <form th:action="@{/user/account/update/info}" method="POST" th:object="${user}">
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="name">Họ tên</label></div>
+                            <div class="col-md-8">
+                                <input readonly type="text" id="name" th:field="*{name}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="name">Email</label></div>
+                            <div class="col-md-8">
+                                <input readonly type="text" id="email" th:field="*{email}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="address">Địa chỉ</label></div>
+                            <div class="col-md-8">
+                                <input type="text" id="address" th:field="*{address}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="phone">Điện thoại</label></div>
+                            <div class="col-md-8">
+                                <input type="text" id="phone" th:field="*{phone}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger">Thực hiện</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">Cập nhật mật khẩu</div>
+                <div class="card-body">
+                    <form th:action="@{/user/account/update/password}" method="POST" th:object="${user}">
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="password">Mật khẩu</label></div>
+                            <div class="col-md-8">
+                                <input required type="password" id="password" th:field="*{password}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="confirmPassword">Nhập lại mật khẩu</label></div>
+                            <div class="col-md-8">
+                                <input required type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger">Thực hiện</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

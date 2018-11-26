@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Đơn hàng</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/user :: message"></div>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/user :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">Đơn hàng Số <span th:text="${item.id}"></span></div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Khách hàng</div>
+                        <div class="col-sm-9" th:text="${user.name}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Email</div>
+                        <div class="col-sm-9" th:text="${user.email}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Địa chỉ</div>
+                        <div class="col-sm-9" th:text="${item.address}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Điện thoại</div>
+                        <div class="col-sm-9" th:text="${item.phone}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Trạng thái</div>
+                        <div class="col-sm-9" th:switch="${item.status.name}">
+                            <span th:case="'Pending'">Đang xét</span>
+                            <span th:case="'Shipping'">Đang giao</span>
+                            <span th:case="'Succeeded'">Thành công</span>
+                            <span th:case="'Failed'">Thất bại</span>
+                            <span th:case="*">Đơn hàng ???</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">Chi tiết đơn hàng</div>
+                <div class="card-body">
+                    <th:block th:each="i : ${item.details}">
+                    <div class="row py-1">
+                        <div class="col-sm-7 col-12"><a th:href="@{|/shop/${i.itemId}|}" th:text="${i.itemName}"></a></div>
+                        <div class="col-sm-2 col-6 text-right" th:text="'x'+${i.amount}"></div>
+                        <div class="col-sm-3 col-6 text-right" th:text="${i.price}+'đ'"></div>
+                    </div>
+                    </th:block>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-8">Tổng số lượng</div>
+                        <div class="col-4 h5 text-right" th:text="${item.totalItems}+' bánh'"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">Tổng số tiền</div>
+                        <div class="col-4 h3 text-right" th:text="${item.totalPrice}+'đ'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <a th:href="@{/user/order}" class="btn btn-mdb-color mt-4 mx-0">Tổng quan đơn hàng</a>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

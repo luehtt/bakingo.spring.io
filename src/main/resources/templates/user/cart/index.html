@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Giỏ hàng</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content">
+    <script th:src="@{/js/user/cart.js}" defer></script>
+
+    <div id="app" class="container">
+        <div th:replace="fragments/user :: message"></div>
+
+        <template v-if="items.length > 0">
+            <form th:action="@{/user/cart/order}" method="post">
+                <div class="card mt-4 mb-4">
+                    <div class="card-header">Danh sách đặt bánh</div>
+                    <div class="card-body">
+                        <template v-for="i in items">
+                            <div class="row mb-2">
+                                <input type="hidden" :value="i.id" name="item_id[]">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2 col-6 my-auto pt-md-0 pt-4">
+                                            <img class="card-img-top img-fluid" :src="`/media/item/${i.photo}`"
+                                                 :alt="i.photo">
+                                        </div>
+                                        <div class="col-md-7 col-6 my-auto pt-md-0 pt-2"><h5 class="py-0 my-0">
+                                            <a :href="`/shop/${i.id}`">{{ i.name }}</a>
+                                        </h5></div>
+                                        <div class="col-md-3 my-auto d-none d-md-block text-secondary text-right">
+                                            {{i.sellPrice}}đ
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 pt-2 pt-md-0 my-auto">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input name="item_amount[]" v-on:change="updateSession" data-id="i.id"
+                                                   type="number" class="form-control text-right" v-model="i.amount"
+                                                   min="0" max="100">
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="text-info text-right"><h4
+                                                    class="my-0 btn btn-outline-info pt-2 pb-1">{{i.sellPrice * i.amount}}đ</h4></div>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <input :data-id="i.id" v-on:click="resetItem($event)" type="button"
+                                                   value="X" class="btn btn-outline-danger m-0 px-3 py-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="mt-4 mb-4">
+                    <a th:href="@{/shop}" class="btn btn-mdb-color mb-2 mx-0">Tiếp tục đặt bánh</a>
+                    <input type="button" v-on:click="resetSession" class="btn btn-danger float-sm-right mb-2 mx-0" value="Làm mới toàn bộ giỏ hàng">
+                </div>
+
+                <div class="row mt-4 mb-4">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">Thông tin chuyển hàng</div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="col-form-label">Họ tên</label>
+                                    <input class="form-control" readonly type="text" name="name"
+                                           th:field="${user.name}" maxlength="128">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Email</label>
+                                    <input class="form-control" readonly type="text" name="email"
+                                           th:field="${user.email}" maxlength="128">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Địa chỉ</label>
+                                    <input class="form-control" required type="text" name="address"
+                                           th:field="${user.address}" maxlength="128">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Điện thoại</label>
+                                    <input class="form-control" required type="text" name="phone"
+                                           th:field="${user.phone}" maxlength="128">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">Thông tin giỏ hàng</div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-6">Tổng số lượng</div>
+                                    <div class="col-6 text-right">{{ itemCount }} bánh</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-6">Tổng số tiền</div>
+                                    <div class="col-6 text-right">{{ priceCount }}đ</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-6">Phí vận chuyển</div>
+                                    <div class="col-6 text-right">0đ</div>
+                                </div>
+                                <hr>
+                                <div class="mb-2">
+                                    <div>Tổng số tiền trả</div>
+                                    <div class="h1 text-center">{{ priceCount }}đ</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-info btn-lg w-100">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </template>
+
+        <template v-else>
+            <div class="text-center">
+                <p class="mt-4">Giỏ hàng trống rỗng. Sau đây là một số loại bánh thơm ngon!</p>
+                <p class="mt-1">Bạn có muốn thêm vào giỏ hàng!?</p>
+
+                <div class="row">
+                    <template v-for="i in random">
+                        <div class="col-lg-2 col-md-4 col-sm-3 col-2 d-flex my-2">
+                            <div class="card">
+                                <a :href="`/shop/${i.id}`">
+                                    <img class="card-img-top img-fluid" v-bind:src="`/media/item/${i.photo}`"
+                                         :alt="i.photo">
+                                </a>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="mt-4"><a th:href="@{/shop}" class="btn btn-mdb-color">Tiếp tục mua hàng</a></div>
+            </div>
+        </template>
+    </div>
+</div>
+</body>
+
+</html>

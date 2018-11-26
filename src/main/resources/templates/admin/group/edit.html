@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật loại bánh</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <form th:action="@{|/admin/item/${item.id}/edit|}" method="post">
+                    <div class="card-header">Cập nhật loại bánh</div>
+                    <div class="card-body">
+                        <input type="hidden" name="_method" value="put"/>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="name">Tên loại</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="name" required type="text" th:field="${item.name}" maxlength="64">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <a th:href="@{/admin/group}" class="btn btn-mdb-color">Trở lại</a>
+                            <button type="submit" class="btn btn-success">Thực hiện</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

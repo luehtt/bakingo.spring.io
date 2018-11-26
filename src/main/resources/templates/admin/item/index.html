@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách bánh</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">
+                    <span th:if="${enabled}">Danh sách bánh</span>
+                    <span th:unless="${enabled}">Danh sách bánh ngưng bán</span>
+                    <div class="float-right">
+                        <a class="mr-2" th:href="@{/admin/item/create}">Thêm bánh</a>
+                        <a th:if="${enabled}" th:href="@{/admin/item/disabled}">Bánh ngưng bán</a>
+                        <a th:unless="${enabled}" th:href="@{/admin/item}">Bánh đang bán</a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form class="form-inline mb-4" th:if="${enabled}" th:action="@{/admin/item}">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control rounded-0" name="search" placeholder="thông tin tìm kiếm">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success rounded-0 m-0 py-0 z-depth-0" style="min-width: 100px"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="form-inline mb-4" th:unless="${enabled}" th:action="@{/admin/item/disabled}">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control rounded-0" name="search" placeholder="thông tin tìm kiếm">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success rounded-0 m-0 py-0 z-depth-0" style="min-width: 100px"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <th:block th:each="i : ${items}">
+                        <div class="row py-1">
+                            <div class="col-sm-6 col-12" th:text="${i.name}"></div>
+                            <div class="col-sm-3 col-6" th:text="${i.group.name}"></div>
+                            <div class="col-sm-3 col-6 text-right">
+                                <a class="border-0 px-1 py-0 text-success"
+                                   th:href="@{|/admin/item/${i.id}/edit|}">Sửa</a>
+                                <a class="border-0 px-1 py-0 text-danger"
+                                   th:href="@{|/admin/item/${i.id}/delete|}">Xóa</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

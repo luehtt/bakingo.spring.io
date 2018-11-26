@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm bánh</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <form th:action="@{/admin/item/create}" method="post" enctype="multipart/form-data">
+                    <div class="card-header">Thêm bánh</div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="name">Tên</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="name" required type="text" th:field="${item.name}" maxlength="64">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="price">Giá</label>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <input class="form-control" id="price" type="number" required th:field="${item.price}" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="discount">Giảm giá</label>
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <input class="form-control" id="discount" type="number" required th:field="${item.discount}" min="0" max="100" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="group">Loại</label>
+                            <div class="col-md-9">
+                                <select th:field="${item.group}" id="group" class="form-control" required>
+                                    <option th:each="i : ${groups}" th:value="${i.id}" th:text="${i.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="image">Hình ảnh</label>
+                            <div class="col-md-9">
+                                <input class="form-control pb-5" id="image" type="file" th:field="${item.image}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right" for="info">Thông tin</label>
+                            <div class="col-md-9">
+                            <textarea class="form-control" id="info" th:field="${item.info}" rows="6" maxlength="2048"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a th:href="@{/admin/item}" class="btn btn-mdb-color">Trở lại</a>
+                            <button type="submit" class="btn btn-success">Thực hiện</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Tiệm bánh</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content">
+    <script th:src="@{/js/user/shop.js}" defer></script>
+
+    <div id="app" class="container">
+        <div class="row mt-4">
+            <div class="col-md-3 mb-2">
+                <select class="form-control" value="0" v-on:change="selectGroup($event)">
+                    <option value="0">Tất cả</option>
+                    <option v-for="i of groups" :value="i.id">{{i.name}}</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-2">
+                <div class="input-group">
+                    <input name="search" type="text" class="form-control" v-model="search">
+                    <input id="search-button" type="button" v-on:click="clearSearch" value="Hủy" class="btn btn-danger m-0 px-3 py-0 z-depth-0 text-uppercase">
+                </div>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a class="btn btn-success text-white w-100 m-0 py-2" th:href="@{/user/cart}">
+                    <i class="fas fa-shopping-cart mr-2"></i>Giỏ hàng</a>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div v-for="i in filter" class="col-sm-6 col-md-6 col-lg-4 d-flex align-items-stretch">
+                <div class="card mt-2">
+                    <img class="card-img-top img-fluid" :src="`/media/item/${i.photo}`">
+
+                    <div class="card-body p-3">
+                        <h5><a :href="`/shop/${i.id}`">{{i.name}}</a></h5>
+                        <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div class="mt-2" v-if="i.discount != 0">
+                                    <span class="text-danger"><strike>{{i.price}}đ</strike></span>
+                                    <span class="float-right">{{i.sellPrice}}đ</span>
+                                </div>
+                                <div class="mt-2" v-else><span>{{i.sellPrice}}đ</span></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="btn-group float-right">
+                                    <button v-show="i.amount > 0" class="btn btn-info py-2 px-3">{{i.amount}}</button>
+                                    <button th:type="button" class="btn btn-success py-2 px-2" v-bind:data-id="i.id" v-on:click="addSession($event)">Thêm
+                                        <i v-bind:data-id="i.id" class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

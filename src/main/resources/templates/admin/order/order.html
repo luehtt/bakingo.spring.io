@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách đơn hàng</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header" th:switch="${header}">
+                    <p class="p-0 m-0" th:case="'Pending'">Đơn hàng đang xét</p>
+                    <p class="p-0 m-0" th:case="'Shipping'">Đơn hàng đang giao</p>
+                    <p class="p-0 m-0" th:case="'Succeeded'">Đơn hàng thành công</p>
+                    <p class="p-0 m-0" th:case="'Failed'">Đơn hàng thất bại</p>
+                    <p th:case="*">Đơn hàng ???</p>
+                </div>
+                <div class="card-body">
+                    <th:block th:each="i : ${items}">
+                        <div class="row py-1">
+                            <div class="col-sm-2 col-4" th:text="${i.id}"></div>
+                            <div class="col-sm-4 col-8" th:text="${i.phone}"></div>
+                            <div class="col-sm-4 col-8" th:text="${i.address}"></div>
+                            <div class="col-sm-2 col-4 text-right">
+                                <a class="border-0 py-0 text-success" th:href="@{|/admin/order/show/${i.id}|}">Xem</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

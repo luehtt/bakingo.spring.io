@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <title>Bình luận</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">Bình luận</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <p>Loại bánh: <a th:href="@{|/shop/${item.item.id}|}" th:text="${item.item.name}"></a></p>
+                        <p>Người gửi: <a th:href="@{|/admin/customer/${item.user.id}/edit|}" th:text="${item.user.name}"></a></p>
+                        <p>Thời điểm: <span th:text="${item.created}"></span></p>
+                        <p class="my-2 text-justify" th:text="${item.content}"></p>
+                    </div>
+                    <div class="text-center">
+                        <form th:action="@{|/admin/feedback/${item.id}/delete|}" method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <a th:href="@{/admin/feedback}" class="btn btn-mdb-color">Trở lại</a>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

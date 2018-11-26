@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Tiệm bánh</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content">
+    <script th:src="@{/js/user/item.js}" defer></script>
+
+    <div id="app" class="container">
+        <div class="row mt-4">
+            <div class="col-md-4 col-sm-6 pb-2">
+                <img class="card-img-top img-fluid" v-bind:src='"/media/item/" + item.photo' :alt="item.photo">
+            </div>
+
+            <div class="col-md-8 col-sm-6 pb-2">
+                <div class="card">
+                    <div class="card-header"><h3 class="text-white">{{ item.name }}</h3></div>
+                    <div class="card-body">
+                        <input type="hidden" id="item_id" th:field="${item.id}">
+                        <h5 v-if="item.discount == 0" class="card-title">Giá bán: {{ item.price }}đ</h5>
+                        <h5 v-else class="card-title">Giá bán: {{item.sellPrice}}đ <strike class="text-mdb-color ml-2">{{ item.price }}đ</strike></h5>
+                        <div class="input-group mx-auto my-4">
+                            <input class="text-right form-control" v-on:change="addItem($event)" v-model="amount" style="max-width: 120px" type="number" min="0" step="1">
+                            <div class="input-group-btn btn-group">
+                                <button type="button" v-on:click="addItem($event)" class="py-0 btn btn-success text-uppercase rounded-0"><i class="fas fa-cart-plus mr-2"></i>Thêm giỏ hàng</button>
+                                <button type="button" v-on:click="deleteItem($event)" class="py-0 btn btn-danger text-uppercase rounded-0"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="text-justify my-4">{{ item.info }}</div>
+                        <a th:href="@{/shop}" class="btn btn-mdb-color">Trở lại</a>
+                        <a class="btn btn-info add-button float-right" th:href="@{/user/cart}">
+                            <i class="fas fa-shopping-cart mr-2"></i>Giỏ hàng của tôi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <template v-if="random.length > 0">
+            <div><h3 class="mt-4 text-capitalize">Loại bánh tương tự</h3><hr></div>
+            <div class="row">
+                <template v-for="i in random">
+                    <div class="col-md-3 col-6 d-flex my-2">
+                        <div class="card">
+                            <a :href='"/shop/" + i.id'><img class="card-img-top img-fluid" :src='"/media/item/" + i.photo' :alt="i.photo"></a>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <div class="mt-4">
+            <h3 class="text-capitalize">Bình luận của khách hàng</h3><hr>
+            <a class="btn btn-success text-white my-3 mx-0" th:href="@{|/user/comment/${item.id}/post|}">Gửi bình luận</a>
+            <div v-if="comments.length > 0">
+                <template v-for="i in comments">
+                    <div class="card w-100 mb-3">
+                        <div class="card-header bg-info text-light">{{ i.user.name }} lúc {{ i.created }}</div>
+                        <div class="card-body py-2"><p class="card-text text-justify">{{ i.content }}</p></div>
+                    </div>
+                </template>
+            </div>
+            <div v-else>
+                <p>Chưa có bình luận nào về loại bánh!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

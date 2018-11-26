@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Tiệm bánh</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Đăng kí</div>
+
+                <div class="text-center mt-3" th:if="${success}">
+                    <p class="text-success" th:text="${message}"></p>
+                    <p><a href="/login">Đăng nhập tại đây</a></p>
+                </div>
+
+                <div class="card-body" th:unless="${success}">
+                    <form th:action="@{/register}" method="POST" th:object="${user}">
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="email">Email</label></div>
+                            <div class="col-md-8">
+                                <input required type="text" id="email" name="email" th:field="*{email}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="name">Họ tên</label></div>
+                            <div class="col-md-8">
+                                <input required type="text" id="name" th:field="*{name}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="password">Mật khẩu</label></div>
+                            <div class="col-md-8">
+                                <input required type="password" id="password" th:field="*{password}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="confirmPassword">Nhập lại mật khẩu</label></div>
+                            <div class="col-md-8">
+                                <input required type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="address">Địa chỉ</label></div>
+                            <div class="col-md-8">
+                                <input type="text" id="address" th:field="*{address}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4 text-right"><label for="phone">Điện thoại</label></div>
+                            <div class="col-md-8">
+                                <input type="text" id="phone" th:field="*{phone}" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5 text-danger">
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email đã được đăng kí!!</p>
+                            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Nhập lại mật khẩu không chính xác!!</p>
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-lg btn-primary">Đăng kí</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

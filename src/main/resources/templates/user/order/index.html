@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Tổng quan Đơn hàng</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/user :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/user :: menu"></div>
+        </div>
+
+        <div class="col-lg-9 col-md-8">
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <div class="card text-center">
+                        <div class="card-header">Đơn hàng đang xét</div>
+                        <div class="my-2"><span th:text="${totalPending}"></span> đơn hàng</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <div class="card text-center">
+                        <div class="card-header">Đơn hàng đang giao</div>
+                        <div class="my-2"><span th:text="${totalShipping}"></span> đơn hàng</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <div class="card text-center">
+                        <div class="card-header">Đơn hàng thành công</div>
+                        <div class="my-2"><span th:text="${totalSucceeded}"></span> đơn hàng</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <div class="card text-center">
+                        <div class="card-header">Đơn hàng thất bại</div>
+                        <div class="my-2"><span th:text="${totalFailed}"></span> đơn hàng</div>
+                    </div>
+                </div>
+            </div>
+
+            <a th:href="@{/shop}" class="btn btn-mdb-color mb-2 mt-4 mx-0">Tiếp tục mua hàng</a>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

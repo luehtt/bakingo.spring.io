@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <title>Khách hàng</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header" th:text="'Khách hàng ' + ${user.id}"></div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Họ tên</div>
+                        <div class="col-sm-9" th:text="${user.name}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Email</div>
+                        <div class="col-sm-9" th:text="${user.email}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Địa chỉ</div>
+                        <div class="col-sm-9" th:text="${user.address}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Điện thoại</div>
+                        <div class="col-sm-9" th:text="${user.phone}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Đăng kí</div>
+                        <div class="col-sm-9" th:text="${user.created}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Cập nhật</div>
+                        <div class="col-sm-9" th:text="${user.updated}"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">Lịch sử đơn hàng</div>
+                <div class="card-body">
+                    <th:block th:each="i : ${orders}">
+                        <div class="row py-1">
+                            <div class="col-sm-2 col-4" th:text="${i.id}"></div>
+                            <div class="col-sm-2 col-4" th:text="${i.totalItems} + ' bánh'"></div>
+                            <div class="col-sm-2 col-4 text-right" th:text="${i.totalPrice}+'đ'"></div>
+                            <div class="col-sm-4 col-8 text-right" th:text="${i.created}"></div>
+                            <div class="col-sm-2 col-4 text-right"><a th:href="@{|/admin/order/show/${i.id}|}">Xem</a></div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+
+            <div th:if="${user.enabled}">
+                <div class="btn-group float-md-right mt-4">
+                    <form th:action="@{|/admin/customer/${user.id}/disabled|}" method="post">
+                        <button class="btn btn-danger">Khóa tài khoản</button>
+                    </form>
+                </div>
+            </div>
+            <div th:unless="${user.enabled}">
+                <div class="btn-group float-md-right mt-4">
+                    <form th:action="@{|/admin/customer/${user.id}/enabled|}" method="post">
+                        <button class="btn btn-danger">Mở tài khoản</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

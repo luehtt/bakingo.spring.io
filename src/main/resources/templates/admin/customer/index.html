@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khách hàng</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">
+                    <span th:if="${enabled}">Danh sách khách hàng</span>
+                    <span th:unless="${enabled}">Danh sách khách hàng bị khóa</span>
+                    <div class="float-right">
+                        <a th:if="${enabled}" th:href="@{/admin/customer/disabled}">Khách hàng bị khóa</a>
+                        <a th:unless="${enabled}" th:href="@{/admin/customer}">Khách hàng</a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form class="form-inline mb-4" th:if="${enabled}" th:action="@{/admin/customer}">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control rounded-0" name="search" placeholder="thông tin tìm kiếm">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success rounded-0 m-0 py-0 z-depth-0" style="min-width: 100px"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="form-inline mb-4" th:unless="${enabled}" th:action="@{/admin/customer/disabled}">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control rounded-0" name="search" placeholder="thông tin tìm kiếm">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success rounded-0 m-0 py-0 z-depth-0" style="min-width: 100px"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <th:block th:each="i : ${items}">
+                        <div class="row py-1">
+                            <div class="col-sm-3 col-6" th:text="${i.name}"></div>
+                            <div class="col-sm-3 col-6" th:text="${i.email}"></div>
+                            <div class="col-sm-3 col-6 text-right" th:text="${i.phone}"></div>
+                            <div class="col-sm-3 col-6 text-right">
+                                <a class="border-0 px-1 py-0 text-success" th:href="@{|/admin/customer/${i.id}/edit|}">Xem</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

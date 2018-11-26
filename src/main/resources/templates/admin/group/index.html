@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách loại</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">Danh sách loại
+                    <span class="float-right"><a th:href="@{/admin/group/create}">Thêm loại</a></span>
+                </div>
+                <div class="card-body">
+                    <th:block th:each="i : ${items}">
+                        <div class="row py-1">
+                            <div class="col-4" th:text="${i.name}"></div>
+                            <div class="col-4 text-right" th:text="${i.getItemsCount()} + ' loại'"></div>
+                            <div class="col-4 text-right">
+                                <a class="border-0 px-1 py-0 text-success"
+                                   th:href="@{|/admin/group/${i.id}/edit|}">Sửa</a>
+                                <a class="border-0 px-1 py-0 text-danger"
+                                   th:href="@{|/admin/group/${i.id}/delete|}">Xóa</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

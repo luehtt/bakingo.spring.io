@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Giỏ hàng</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content">
+    <script th:src="@{/js/user/result.js}" defer></script>
+
+    <div id="app" class="container">
+        <div class="row mt-4 mb-4" th:if="${success == true}">
+            <div class="col-md-5 col-lg-4">
+                <div class="card">
+                    <div id="success" class="card-header">Đặt hàng thành công</div>
+                    <div class="card-body">
+                        <div>Khách hàng</div>
+                        <div class="mb-2" th:text="${user.name}"></div>
+                        <div>Email</div>
+                        <div class="mb-2" th:text="${user.email}"></div>
+                        <div>Địa chỉ</div>
+                        <div class="mb-2" th:text="${user.address}"></div>
+                        <div>Điện thoại</div>
+                        <div class="mb-2" th:text="${user.phone}"></div>
+                    </div>
+                </div>
+                <a th:href="@{/user/order}" class="btn btn-mdb-color my-4 mx-0">Đơn hàng của tôi</a>
+            </div>
+
+            <div class="col-md-7 col-lg-8">
+                <div class="card">
+                    <div class="card-header">Danh sách đơn hàng</div>
+                    <div class="card-body">
+                        <th:block th:each="i : ${order.details}">
+                            <div class="row py-1">
+                                <div class="col-sm-7 col-12"><a th:href="@{|/shop/${i.itemId}|}" th:text="${i.itemName}"></a></div>
+                                <div class="col-sm-2 col-6 text-right" th:text="@{|x${i.amount}|}"></div>
+                                <div class="col-sm-3 col-6 text-right" th:text="@{|${i.price}đ|}"></div>
+                            </div>
+                        </th:block>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-8">Tổng số lượng</div>
+                            <div class="col-4 h5 text-right" th:text="@{|${order.totalItems} bánh|}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">Tổng số tiền</div>
+                            <div class="col-4 h3 text-right" th:text="@{|${order.totalPrice}đ|}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:unless="${success == true}">
+            <div class="card mt-4 mb-4">
+                <div class="card-header">Đặt hàng thất bại</div>
+                <div class="card-body">
+                    <div th:text="${message}"></div>
+                </div>
+            </div>
+            <a th:href="@{/shop}" class="btn btn-mdb-color mb-2 mx-0">Tiếp tục mua hàng</a>
+        </div>
+
+    </div>
+</div>
+</body>
+
+</html>

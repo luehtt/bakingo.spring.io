@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Bình luận</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/user :: message"></div>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/user :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card mb-3" th:if="${!comments.empty}">
+                <div class="card-header" th:text="${item.name}"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3">
+                            <img class="img-fluid" th:src="@{|/media/item/${item.photo}|}">
+                            <p class="text-center my-2"><a th:href="@{|/shop/${item.id}|}">Xem thêm</a></p>
+                        </div>
+                        <div class="col-md-8 col-lg-9">
+                            <th:block th:each="i : ${comments}">
+                                <div class="mb-1">Thời điểm: <span th:text="${i.created}"></span></div>
+                                <div class="mb-1 text-justify" th:text="${i.content}"></div>
+                                <div class="mb-4">
+                                    <form th:action="@{|/user/comment/${item.id}/delete/${i.id}|}" method="post">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" class="btn btn-sm btn-danger mx-0">Xóa</button>
+                                    </form>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <form th:action="@{|/user/comment/${item.id}/post|}" method="post">
+                    <div class="card-header">Gửi bình luận</div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-12">
+                            <textarea class="form-control" id="content" required rows="6" th:field="${comment.content}"
+                                      maxlength="2048"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Thực hiện</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

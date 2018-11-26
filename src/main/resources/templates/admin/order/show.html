@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết đơn hàng</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/admin :: message"></div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header" th:text="'Đơn hàng Số ' + ${item.id}"></div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Khách hàng</div>
+                        <div class="col-sm-9" th:text="${item.user.name}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Email</div>
+                        <div class="col-sm-9" th:text="${item.user.email}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Địa chỉ</div>
+                        <div class="col-sm-9" th:text="${item.address}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Điện thoại</div>
+                        <div class="col-sm-9" th:text="${item.phone}"></div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-3">Trạng thái</div>
+                        <div class="col-sm-9" th:switch="${item.status.name}">
+                            <span th:case="'Pending'">Đang xét</span>
+                            <span th:case="'Shipping'">Đang giao</span>
+                            <span th:case="'Succeeded'">Thành công</span>
+                            <span th:case="'Failed'">Thất bại</span>
+                            <span th:case="*">Đơn hàng ???</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">Chi tiết đơn hàng</div>
+                <div class="card-body">
+                    <th:block th:each="i : ${item.details}">
+                        <div class="row py-1">
+                            <div class="col-sm-7 col-12"><a th:href="@{|/shop/${i.itemId}|}" th:text="${i.itemName}"></a></div>
+                            <div class="col-sm-2 col-6 text-right" th:text="'x'+${i.amount}"></div>
+                            <div class="col-sm-3 col-6 text-right" th:text="${i.price}+'đ'"></div>
+                        </div>
+                    </th:block>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-8">Tổng số lượng</div>
+                        <div class="col-4 h5 text-right" th:text="${item.totalItems}+' bánh'"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">Tổng số tiền</div>
+                        <div class="col-4 h3 text-right" th:text="${item.totalPrice}+'đ'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <th:block th:switch="${item.status.name}">
+                <div th:case="'Pending'">
+                    <a th:href="@{/admin/order/pending}" class="btn btn-mdb-color mt-4 mx-0">Trở lại đơn hàng đang xét</a>
+                    <div class="btn-group float-md-right mt-4">
+                        <form th:action="@{|/admin/order/shipping/${item.id}|}" method="post">
+                            <button class="btn btn-success mr-1">Giao hàng</button>
+                        </form>
+                        <form th:action="@{|/admin/order/failed/${item.id}|}" method="post">
+                            <button class="btn btn-danger">Thất bại</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:case="'Shipping'">
+                    <a th:href="@{/admin/order/shipping}" class="btn btn-mdb-color mt-4 mx-0">Trở lại đơn hàng đang giao</a>
+                    <div class="btn-group float-md-right mt-4">
+                        <form th:action="@{|/admin/order/succeeded/${item.id}|}" method="post">
+                            <button class="btn btn-success mr-1">Thành công</button>
+                        </form>
+                        <form th:action="@{|/admin/order/failed/${item.id}|}" method="post">
+                            <button class="btn btn-danger">Thất bại</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:case="'Succeeded'">
+                    <a th:href="@{/admin/order/succeeded}" class="btn btn-mdb-color mt-4 mx-0">Trở lại đơn hàng thành công</a>
+                </div>
+                <div th:case="'Failed'">
+                    <a th:href="@{/admin/order/failed}" class="btn btn-mdb-color mt-4 mx-0">Trở lại đơn hàng thất bại</a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

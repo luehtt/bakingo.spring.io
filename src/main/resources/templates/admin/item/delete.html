@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin}">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa bánh</title>
+</head>
+<body class="bg-light">
+
+<div layout:fragment="content" class="container">
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/admin :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <form th:action="@{|/admin/item/${item.id}/delete|}" method="post">
+                    <div class="card-header">Xóa bánh</div>
+                    <div class="card-body">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <div class="text-center mb-4">Bạn có chắc xóa bánh <span class="text-danger" th:text="${item.name}"></span>!?</div>
+                        <div class="text-center">
+                            <a th:href="@{/admin/item}" class="btn btn-mdb-color">Trở lại</a>
+                            <button type="submit" class="btn btn-danger">Thực hiện</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

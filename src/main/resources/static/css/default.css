@@ -1,0 +1,233 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+@import url(https://use.fontawesome.com/releases/v5.1.0/css/all.css);
+
+* {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+body {
+    min-width: 320px;
+    color: #343a40;
+}
+
+.font-condensed {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.font-expanded {
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: .05em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-family:'Quicksand', sans-serif;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+h1 {
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+h2 {
+    letter-spacing: .05em;
+    text-transform: capitalize;
+}
+
+h3 {
+    letter-spacing: .05em;
+    text-transform: capitalize;
+}
+
+.h1, h1 {
+    font-size: 2.25rem
+}
+
+.h2, h2 {
+    font-size: 2rem
+}
+
+.h3, h3 {
+    font-size: 1.75rem
+}
+
+.h4, h4 {
+    font-size: 1.5rem
+}
+
+.h5, h5 {
+    font-size: 1.25rem
+}
+
+.small {
+    font-size: 85%
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 1140px;
+}
+
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.img-fluid {
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.anchor {
+    display: block;
+    position: relative;
+    top: -5rem;
+    visibility: hidden;
+}
+
+.btn {
+    border-width: 1px !important;
+}
+
+.btn-fixed-rounded {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 4rem;
+    min-height: 4rem;
+    max-width: 4rem;
+    max-height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+}
+
+.p-6 {
+    padding: 5rem !important
+}
+
+.pt-6, .py-6 {
+    padding-top: 5rem !important
+}
+
+.pr-6, .px-6 {
+    padding-right: 5rem !important
+}
+
+.pb-6, .py-6 {
+    padding-bottom: 5rem !important
+}
+
+.pl-6, .px-6 {
+    padding-left: 5rem !important
+}
+
+h1, h2, h3, a {
+    color: #6c757d;
+}
+
+a:hover {
+    color: #545b62;
+}
+
+.bg-primary.bg-dark, .btn-primary.btn-dark {
+    background-color: #0062cc !important;
+    border-color: #0062cc !important;
+}
+
+.bg-secondary.bg-dark, .btn-secondary.btn-dark {
+    background-color: #545b62 !important;
+    border-color: #545b62 !important;
+}
+
+.bg-success.bg-dark, .btn-success.btn-dark {
+    background-color: #1e7e34 !important;
+    border-color: #1e7e34 !important;
+}
+
+.bg-info.bg-dark, .btn-info.btn-dark {
+    background-color: #117a8b !important;
+    border-color: #117a8b !important;
+}
+
+.bg-warning.bg-dark, .btn-warning.btn-dark {
+    background-color: #d39e00 !important;
+    border-color: #d39e00 !important;
+}
+
+.bg-danger.bg-dark, .btn-danger.btn-dark {
+    background-color: #bd2130 !important;
+    border-color: #bd2130 !important;
+}
+
+.bg-light.bg-dark, .btn-light.btn-dark {
+    background-color: #dae0e5 !important;
+    border-color: #dae0e5 !important;
+}
+
+.bg-black.bg-dark, .btn-black.btn-dark {
+    background-color: #1d2124 !important;
+    border-color: #1d2124 !important;
+}
+
+.text-transform-none {
+    text-transform: none !important;
+}
+
+.dropdown-menu {
+    min-width: 6.8rem;
+}
+
+.nav-item a {
+    color: #fff !important;
+    background-color: #00c851 !important;
+}
+
+.nav-item a:hover {
+    color: #fff !important;
+    background-color: #00953c !important;
+}
+
+h1, h2, h3 {
+    color: #00c851;
+}
+
+hr {
+    border-top: 1px solid #00c851;
+}
+
+.card-header {
+    color: #fff;
+    background-color: #00c851;
+}
+
+.card-header a {
+    color: #fff !important;
+    padding: 6px;
+    background-color: #00c851 !important;
+}
+
+.card-header a:hover {
+    color: #fff !important;
+    background-color: #00953c !important;
+}
+
+input[type=checkbox] {
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+}
+
+input[type=radio] {
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+}

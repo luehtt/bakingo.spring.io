@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/user}">
+<head>
+    <title>Bình luận</title>
+</head>
+
+<body class="bg-light">
+<div layout:fragment="content" class="container">
+    <div th:replace="fragments/user :: message"></div>
+
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+            <div th:replace="fragments/user :: menu"></div>
+        </div>
+
+        <div class="col-md-8 col-lg-9">
+            <div class="card">
+                <div class="card-header">Bình luận</div>
+                <div class="card-body">
+                    <th:block th:each="i : ${items}">
+                        <div class="row mb-2">
+                            <div class="col-sm-1 col-2"><img class="img-fluid" th:src="@{|/media/item/${i.item.photo}|}"></div>
+                            <div class="col-sm-5 col-10"><a th:href="@{|/shop/${i.item.id}|}" th:text="${i.item.name}"></a></div>
+                            <div class="col-sm-4 col-8" th:text="${i.created}"></div>
+                            <div class="col-sm-2 col-4 text-right">
+                                <a class="border-0 py-0 mb-1 text-success" th:href="@{|/user/comment/${i.item.id}/post|}">Xem</a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
